@@ -60,8 +60,8 @@
             .menu-tog { display: block; }
             header { background: var(--bg); overflow: hidden; }
             .hdr-ctrls { display: none !important; }
-            nav { position: fixed; top: 64px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 24px; gap: 20px; border-bottom: 1px solid var(--surface); transform: translateY(-120%); transition: transform 0.3s ease; z-index: 99; }
-            nav.open { transform: translateY(0); }
+            nav { position: fixed; top: 64px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 24px; gap: 20px; border-bottom: 1px solid var(--surface); transform: translateY(-200%); visibility: hidden; opacity: 0; transition: transform 0.3s ease, visibility 0.3s ease, opacity 0.3s ease; z-index: 99; }
+            nav.open { transform: translateY(0); visibility: visible; opacity: 1; }
             nav.open .hdr-ctrls { display: flex !important; justify-content: center; padding-top: 8px; border-top: 1px solid var(--surface); }
             nav a { font-size: 18px; }
         }
