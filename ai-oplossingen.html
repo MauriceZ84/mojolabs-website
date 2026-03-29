@@ -150,7 +150,7 @@
                 <h2 data-nl="Klaar voor AI?" data-en="Ready for AI?">Klaar voor AI?</h2>
                 <p data-nl="Vertel ons je uitdaging. Wij kijken of en hoe AI het kan oplossen." data-en="Tell us your challenge. We'll see if and how AI can solve it.">Vertel ons je uitdaging. Wij kijken of en hoe AI het kan oplossen.</p>
                 <div class="cta-content">
-                    <form class="contact-form" onsubmit="handleSubmit(event)">
+                    <form class="contact-form" name="contact-ai" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
                         <input type="hidden" name="subject" value="AI Oplossingen">
                         <div class="form-group"><label data-nl="Naam" data-en="Name">Naam</label><input type="text" name="name" required></div>
                         <div class="form-group"><label data-nl="E-mail" data-en="Email">E-mail</label><input type="email" name="email" required></div>
@@ -189,7 +189,7 @@
         const s=localStorage.getItem('mojo-theme');if(s){currentTheme=s;if(currentTheme!=='auto')document.documentElement.setAttribute('data-theme',currentTheme);updateThemeIcon();}
         window.addEventListener('scroll',()=>{document.getElementById('header').classList.toggle('scrolled',window.scrollY>20);});
         const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1});document.querySelectorAll('.animate').forEach(el=>obs.observe(el));
-        function handleSubmit(e){e.preventDefault();const d=new FormData(e.target);window.location.href='mailto:zoontjensmaurice@gmail.com?subject=Mojo Labs | '+d.get('subject')+'&body=Van: '+d.get('name')+'%0AEmail: '+d.get('email')+'%0A%0A'+encodeURIComponent(d.get('message'));const b=e.target.querySelector('button[type="submit"]');const o=b.textContent;b.textContent=currentLang==='nl'?'Verstuurd!':'Sent!';b.style.background='var(--teal-hover)';setTimeout(()=>{b.textContent=o;b.style.background='';},3000);}
+        function handleSubmit(e){e.preventDefault();const f=e.target;const b=f.querySelector('button[type="submit"]');b.disabled=true;b.textContent=currentLang==='nl'?'Verzenden...':'Sending...';fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()}).then(r=>{if(r.ok){b.textContent=currentLang==='nl'?'Verstuurd!':'Sent!';b.style.background='var(--teal-hover)';f.reset();setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';b.disabled=false;},3000);}else{b.textContent=currentLang==='nl'?'Fout, probeer opnieuw':'Error, try again';b.style.background='var(--terracotta)';b.disabled=false;setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';},3000);}}).catch(()=>{b.textContent=currentLang==='nl'?'Fout, probeer opnieuw':'Error, try again';b.style.background='var(--terracotta)';b.disabled=false;setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';},3000);});}
         document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mainNav').classList.remove('open')));
     </script>
 </body>
