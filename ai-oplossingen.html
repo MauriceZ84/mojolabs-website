@@ -56,9 +56,11 @@
         .menu-tog svg { width: 24px; height: 24px; }
         @media (max-width: 768px) {
             .menu-tog { display: block; }
-            header { background: var(--bg); padding-top: 12px; }
-            nav { position: fixed; top: 76px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 24px; gap: 20px; border-bottom: 1px solid var(--surface); transform: translateY(-120%); transition: transform 0.3s ease; z-index: 99; }
+            header { background: var(--bg); overflow: hidden; }
+            .hdr-ctrls { display: none !important; }
+            nav { position: fixed; top: 64px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 24px; gap: 20px; border-bottom: 1px solid var(--surface); transform: translateY(-120%); transition: transform 0.3s ease; z-index: 99; }
             nav.open { transform: translateY(0); }
+            nav.open .hdr-ctrls { display: flex !important; justify-content: center; padding-top: 8px; border-top: 1px solid var(--surface); }
             nav a { font-size: 18px; }
         }
 
@@ -151,7 +153,7 @@
                 <h2 data-nl="Klaar voor AI?" data-en="Ready for AI?">Klaar voor AI?</h2>
                 <p data-nl="Vertel ons je uitdaging. Wij kijken of en hoe AI het kan oplossen." data-en="Tell us your challenge. We'll see if and how AI can solve it.">Vertel ons je uitdaging. Wij kijken of en hoe AI het kan oplossen.</p>
                 <div class="cta-content">
-                    <form class="contact-form" name="contact-ai" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
+                    <form class="contact-form" name="contact-ai" onsubmit="handleSubmit(event)">
                         <input type="hidden" name="subject" value="AI Oplossingen">
                         <div class="form-group"><label data-nl="Naam" data-en="Name">Naam</label><input type="text" name="name" required></div>
                         <div class="form-group"><label data-nl="E-mail" data-en="Email">E-mail</label><input type="email" name="email" required></div>
@@ -190,7 +192,7 @@
         const s=localStorage.getItem('mojo-theme');if(s){currentTheme=s;if(currentTheme!=='auto')document.documentElement.setAttribute('data-theme',currentTheme);updateThemeIcon();}
         window.addEventListener('scroll',()=>{document.getElementById('header').classList.toggle('scrolled',window.scrollY>20);});
         const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1});document.querySelectorAll('.animate').forEach(el=>obs.observe(el));
-        function handleSubmit(e){e.preventDefault();const f=e.target;const b=f.querySelector('button[type="submit"]');b.disabled=true;b.textContent=currentLang==='nl'?'Verzenden...':'Sending...';fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(f)).toString()}).then(r=>{if(r.ok){b.textContent=currentLang==='nl'?'Verstuurd!':'Sent!';b.style.background='var(--teal-hover)';f.reset();setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';b.disabled=false;},3000);}else{b.textContent=currentLang==='nl'?'Fout, probeer opnieuw':'Error, try again';b.style.background='var(--terracotta)';b.disabled=false;setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';},3000);}}).catch(()=>{b.textContent=currentLang==='nl'?'Fout, probeer opnieuw':'Error, try again';b.style.background='var(--terracotta)';b.disabled=false;setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';},3000);});}
+        function handleSubmit(e){e.preventDefault();const f=e.target;const b=f.querySelector('button[type="submit"]');b.disabled=true;b.textContent=currentLang==='nl'?'Verzenden...':'Sending...';fetch('https://formspree.io/f/xzdkewbe',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(f)))}).then(r=>{if(r.ok){b.textContent=currentLang==='nl'?'Verstuurd!':'Sent!';b.style.background='var(--teal-hover)';f.reset();setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';b.disabled=false;},3000);}else{b.textContent=currentLang==='nl'?'Fout, probeer opnieuw':'Error, try again';b.style.background='var(--terracotta)';b.disabled=false;setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';},3000);}}).catch(()=>{b.textContent=currentLang==='nl'?'Fout, probeer opnieuw':'Error, try again';b.style.background='var(--terracotta)';b.disabled=false;setTimeout(()=>{b.textContent=currentLang==='nl'?'Verstuur':'Send';b.style.background='';},3000);});}
         document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mainNav').classList.remove('open')));
     </script>
 </body>
