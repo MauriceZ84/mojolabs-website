@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Mojo Labs | BTC Mining Tools</title>
     <meta name="description" content="Dashboards en monitoring tools voor Bitcoin miners door Mojo Labs.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
         .animate { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .animate.visible { opacity: 1; transform: translateY(0); }
 
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(var(--bg-rgb), 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(var(--surface-rgb), 0.5); transition: box-shadow 0.3s ease; }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(var(--bg-rgb), 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(var(--surface-rgb), 0.5); transition: box-shadow 0.3s ease; padding-top: env(safe-area-inset-top, 0px); }
         header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
         .header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
         .logo { display: flex; align-items: center; gap: 4px; text-decoration: none; color: var(--text); }
